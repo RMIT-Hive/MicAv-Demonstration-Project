@@ -1,0 +1,69 @@
+\documentclass{article}
+\input{00-Formatting/setup}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% DOCUMENT EDIT AREA **START** %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\documentCategory}{Document Category} % Is this document an R&T Programme / Project (for example)? 
+\newcommand{\documentType}{Document Type} % is this document a Formulation Authorisation Document (FAD)? A Research Report? Etc.
+\newcommand{\documentTitle}{Document Title} % this is the specific name of the report subject matter
+\newcommand{\documentTitleShortHand}{Short Title} % this is a short-hand reference to the subject matter (if one exists)
+
+\newcolumntype{a}{>{\columncolor{lightgray}}l} % If you put 'a' instead of 'c' in the tabular structure, the result will be a light-grey column
+
+\begin{document}
+\input{01-Sections/coverpage}
+
+%%%%%%%%%%%%%%%%%%%%%%
+%%% REPORT CONTENT %%%
+%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Example Section} \label{ExampleSectionLabel}
+\& Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam mattis eu eros eu placerat. Donec consequat non ipsum sed convallis. Donec aliquam gravida tellus, a finibus augue malesuada pharetra. Donec vehicula malesuada justo. Fusce vestibulum, tellus nec aliquam interdum, neque ex mollis arcu, malesuada fringilla augue leo vitae leo. Pellentesque vitae lorem pretium lectus dapibus lobortis. Morbi at velit quam. Aliquam quis leo non ipsum scelerisque interdum. Vestibulum gravida nulla nec nulla auctor porttitor. Nulla nisi sem, dapibus a finibus in, dapibus quis massa. Cras eleifend cursus finibus. Suspendisse feugiat justo accumsan nisi lacinia tempor. Praesent velit lorem, posuere non magna eget, sagittis sagittis nisl. Pellentesque pulvinar quam ac diam molestie, in tincidunt odio egestas. Morbi vitae auctor nisl, sit amet suscipit nisl. 
+
+\subsection{Itemised Lists}
+\begin{itemize}
+    \item Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    \begin{itemize}
+        \item Nullam facilisis, neque euismod tincidunt vulputate, arcu dolor faucibus diam, ac aliquam leo enim eu erat.
+    \end{itemize}
+    \item Integer tempus augue vitae sollicitudin blandit.
+    \item Quisque eget est vel metus accumsan lacinia.
+    \item Vivamus elementum tortor non eros semper, quis volutpat purus vestibulum.
+    \item Maecenas et purus in orci ullamcorper tincidunt a quis massa.
+\end{itemize}
+
+\subsection{Enumerated Lists}
+\begin{enumerate}
+    \item Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    \begin{enumerate}
+        \item Etiam cursus feugiat ex, nec aliquet urna finibus ut. Maecenas viverra eros nec nulla facilisis consectetur. Donec mollis sapien a semper interdum.
+    \end{enumerate}
+    \item Integer tempus augue vitae sollicitudin blandit.
+    \item Quisque eget est vel metus accumsan lacinia.
+    \item Vivamus elementum tortor non eros semper, quis volutpat purus vestibulum.
+    \item Maecenas et purus in orci ullamcorper tincidunt a quis massa.
+\end{enumerate}
+
+\subsection{Text Formatting}
+\textbf{Suspendisse a ante sed augue aliquet pharetra.} \textit{Suspendisse scelerisque mauris diam, ut fringilla odio egestas nec.} Maecenas sed luctus ipsum. Morbi est velit, luctus sed velit eu, dignissim fringilla est. Aliquam erat volutpat. Pellentesque enim lectus, posuere ac turpis eu, tempor viverra erat. Aliquam lacinia convallis felis.
+
+\subsubsection{Breaks}
+Donec nec nibh venenatis, accumsan libero aliquet, tincidunt urna. Duis iaculis rutrum sodales. Nam leo sapien, laoreet et dolor id, dignissim facilisis quam. Fusce ligula nisl, sollicitudin eu turpis ut, luctus viverra neque. Sed laoreet lobortis lectus sed posuere.\\
+Morbi ultricies diam at ligula dignissim semper. Vestibulum vel sapien ut diam luctus luctus sed eget lacus. Sed laoreet nisl ante, nec tristique velit suscipit vitae. Fusce ornare lectus nisl, a imperdiet ex convallis mattis. Curabitur semper quam ac dui pellentesque lacinia.\\
+Donec in sem fermentum, tempor sapien tristique, congue magna. Fusce pulvinar viverra est at semper.
+
+\pagebreak
+Nunc molestie ligula quis orci semper, nec laoreet massa posuere. Sed imperdiet, risus in rutrum viverra, urna arcu malesuada nulla, nec sollicitudin lacus metus volutpat urna. Nulla nibh neque, feugiat at rhoncus ut, elementum et odio. Mauris eleifend ex vel quam euismod, eget euismod nibh placerat. Nunc iaculis, metus id cursus molestie, ligula purus semper elit, at ullamcorper nunc nisl sed mi. Cras id venenatis massa. Mauris id lobortis nibh. Curabitur mi dui, laoreet eu quam ac, tempor luctus nisl. Sed velit quam, tristique sed ultricies id, dignissim in tellus. 
+
+\subsection{Internal References}
+Citing \textit{Section \ref{ExampleSectionLabel}}. Is that easy, and if it changes, the label will remain. The reference will auto update to the correct number regardless of updates (unless the label is changed).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% DOCUMENT EDIT AREA **STOP** %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{appendices}
+\end{document}

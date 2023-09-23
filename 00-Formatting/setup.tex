@@ -1,0 +1,52 @@
+% Package Import
+
+\usepackage[a4paper, margin=2.2cm, headheight=2cm, headsep=0.6cm, voffset=0.1cm]{geometry} %Document parameters tweaked so text fits good :)
+\usepackage{natbib}                     % Bilbiography / Referencing Library
+\usepackage{multicol}                   % Enables Multiple columns
+\usepackage{graphicx}                   % Allows inclusion
+\usepackage{subcaption}                 % Enables support for writing subcaptions
+\usepackage[export]{adjustbox}          % Allows for better adjustment of figure box sizing
+\usepackage{wrapfig}                    % Wrap around text around figures
+\usepackage{float}                      % Allows stable movement of floating tables and text around tables
+\usepackage{sectsty}                    % Allows Section Style configuration
+\usepackage{xcolor,colortbl}            % Colour package... everything spelt in American English >_<
+\usepackage{fancyhdr}                   % Easy Footers and Headers
+\usepackage{fontspec}                   % Importable fonts
+\usepackage{tabularx}                   % Easily comfigureable tables and table sizes
+\usepackage{enumitem}                   % Easily configureable lists and custom lists
+\usepackage[hidelinks]{hyperref}        % Allows clickable hyperlinks - is primarily used for table of contents
+
+    
+% Font Definition
+
+\newfontfamily{\eco}{Economica}[Path = ../00-Formatting/, Extension = .ttf, UprightFont = *-Regular, BoldFont= *-Bold, ItalicFont = *-Italic, BoldItalicFont = *-BoldItalic]
+\newfontfamily{\dmsans}{DMSans}[Path = ../00-Formatting/, Extension = .ttf, UprightFont = *-Regular, BoldFont= *-Bold, ItalicFont = *-Italic, BoldItalicFont = *-BoldItalic]
+\setmainfont{DMSans}[Path = ../00-Formatting/, Extension = .ttf, UprightFont = *-Regular, BoldFont= *-Bold, ItalicFont = *-Italic, BoldItalicFont = *-BoldItalic]
+
+
+% Section Style Commands
+
+\sectionfont{\eco\uppercase}
+\subsectionfont{\eco\uppercase}
+\subsubsectionfont{\eco\uppercase}
+\urlstyle{same}
+
+
+% Document Headers and Footers
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\includegraphics[width=0.07\textwidth]{00-Formatting/logo_light.png}}
+\fancyfoot[R]{\eco\\ \thepage}
+
+
+% Setup a Custom List Style
+
+\newlist{regulation}{enumerate}{1}
+\setlist[regulation]{label=(\arabic*)}
+
+% Miscellaneous Document Rules
+
+\renewcommand{\footrulewidth}{0.4pt} % default is 0pt
+\bibliographystyle{plain} % Normal command for Natbib style - this style is IEEE (basically)
+\renewcommand{\bibsection}{\section{Bibliography}} % This sets the bibliography to be it's own section (titled 'Bibliography')
