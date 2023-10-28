@@ -7,6 +7,7 @@
 #include <Wire.h>
 #include <SPI.h>
 #include <Adafruit_BMP280.h>
+#include "stdint.h"
 
 #define BMP_SCK  (13)
 #define BMP_MISO (12)
@@ -27,8 +28,8 @@ void Print_Sensor_Error(void);
 void Print_Sensor_Conformation(void);
 
 // state variable - used to keep track of program state
-enum states_e {INIT = 'A', WAIT_FOR_INPUT = 'B', RECORD_DATA = 'C'};
-enum states_e state = INIT;
+enum states_e {INIT, WAIT_FOR_INPUT, RECORD_DATA};
+enum states_e state = INIT; // initial state
 
 void setup() {
   // initialise the microcontroller peripherals
@@ -37,7 +38,7 @@ void setup() {
   // initialise serial port
   Init_Serial();
 
-  // initialise LED (debugging purposes)
+  // initialise onboard LED (debugging purposes)
   pinMode(LED_BUILTIN, OUTPUT);
 
   // debug message
@@ -47,49 +48,55 @@ void setup() {
 void loop() {
   // wait (approximately) 2 seconds between each loop  
   delay(2000);
-  Serial.print("Loop. State = ");
-  Serial.println((char)state);
+  //Serial.print("Loop. State = ");
+  //Serial.println(state);
 
-  // state machine
+  // sensor status (assume false by default)
+  bool sensorStatus = false;
+  // data
+  float pressure = 0;
+  float temperature = 0;
+  float altitude = 0;
+
   switch(state) {
     case INIT:
-        // sensor status
-        bool sensorInitStatus = false;
+      // debug message
+      Serial.println("Configuring sensor!");
 
-        // try to initialise sensor
-        sensorInitStatus = Init_Pressure_Sensor();
+      // try to initialise sensor
+      // and save the result (i.e. status) of this
+      sensorStatus = Init_Pressure_Sensor();
 
-        // if sensor is not found, print error message and break early
-        if (!sensorInitStatus) {
-          Print_Sensor_Error();
-
-          break;
-        }
-        else {
-          Print_Sensor_Conformation();
-        }
-        
-        // apply settings to sensor
-        Configure_Pressure_Sensor();
-        
-        // transition to next state
-        state = WAIT_FOR_INPUT;
+      // if sensor is not found, print error message and break early
+      // otherwise, print conformation and continue
+      if (!sensorStatus) {
+        Print_Sensor_Error();
 
         break;
+      }
+      else {
+        Print_Sensor_Conformation();
+      }
+      
+      // apply settings to sensor
+      Configure_Pressure_Sensor();
+
+      // debug message
+      Serial.println("Configuration complete!");
+
+      // transition to next state
+      state = WAIT_FOR_INPUT;
+
+      break;
     case WAIT_FOR_INPUT:
       // do waiting stuff
 
       // transition to next state
       state = RECORD_DATA;
-      
       break;
     case RECORD_DATA:
-      // data
-      float pressure = 0;
-      float temperature = 0;
-      float altitude = 0;
-      // sensor status
-      bool sensorDataStatus = false;
+      // debug message
+      //Serial.println("Record data loop tick.");
 
       // take readings
       temperature = bmp.readTemperature();
@@ -98,29 +105,29 @@ void loop() {
 
       // do some range checking here based on sensor specs here
       // right now we are just assuming theres no issues
-      sensorDataStatus = true;
+      sensorStatus = true;
 
       // if there were an issue with the sensor:
       // print error message and return to INIT state
       // exit early
-      if (!sensorDataStatus) {
+      if (!sensorStatus) {
         Print_Sensor_Error();
         state = INIT;
 
         break;
       }
 
-      // do something with data
-
       // print data to serial port
       Print_Pressure_Sensor_Data(pressure, temperature, altitude);
 
       break;
     default:
+      // never should be here! something has gone wrong
       state = INIT;
+      Serial.println("Undefined error! Switch case has hit 'default' statement.");
 
       break;
-  }
+  }  
 }
 
 // initialise the serial/uart port
@@ -193,6 +200,7 @@ void Print_Pressure_Sensor_Data(float pressure, float temperature, float altitud
   (void)Serial.print(" *C |");
   (void)Serial.print(altitude);
   (void)Serial.print(" m");
+  (void)Serial.println();
 
   return;
 }
