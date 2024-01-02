@@ -5,10 +5,10 @@
 %%% DOCUMENT EDIT AREA **START** %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newcommand{\documentCategory}{Document Category} % Is this document an R&T Programme / Project (for example)? 
-\newcommand{\documentType}{Document Type} % is this document a Formulation Authorisation Document (FAD)? A Research Report? Etc.
-\newcommand{\documentTitle}{Document Title} % this is the specific name of the report subject matter
-\newcommand{\documentTitleShortHand}{Short Title} % this is a short-hand reference to the subject matter (if one exists)
+\newcommand{\documentCategory}{R\&T Project} % Is this document an R&T Programme / Project (for example)? 
+\newcommand{\documentType}{Design Review} % is this document a Formulation Authorisation Document (FAD)? A Research Report? Etc.
+\newcommand{\documentTitle}{Micro Avionics Unit} % this is the specific name of the report subject matter
+\newcommand{\documentTitleShortHand}{MicAv} % this is a short-hand reference to the subject matter (if one exists)
 
 \newcolumntype{a}{>{\columncolor{lightgray}}l} % If you put 'a' instead of 'c' in the tabular structure, the result will be a light-grey column
 
@@ -19,47 +19,65 @@
 %%% REPORT CONTENT %%%
 %%%%%%%%%%%%%%%%%%%%%%
 
-\section{Example Section} \label{ExampleSectionLabel}
-\& Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam mattis eu eros eu placerat. Donec consequat non ipsum sed convallis. Donec aliquam gravida tellus, a finibus augue malesuada pharetra. Donec vehicula malesuada justo. Fusce vestibulum, tellus nec aliquam interdum, neque ex mollis arcu, malesuada fringilla augue leo vitae leo. Pellentesque vitae lorem pretium lectus dapibus lobortis. Morbi at velit quam. Aliquam quis leo non ipsum scelerisque interdum. Vestibulum gravida nulla nec nulla auctor porttitor. Nulla nisi sem, dapibus a finibus in, dapibus quis massa. Cras eleifend cursus finibus. Suspendisse feugiat justo accumsan nisi lacinia tempor. Praesent velit lorem, posuere non magna eget, sagittis sagittis nisl. Pellentesque pulvinar quam ac diam molestie, in tincidunt odio egestas. Morbi vitae auctor nisl, sit amet suscipit nisl. 
+\section{Introduction}
 
-\subsection{Itemised Lists}
-\begin{itemize}
-    \item Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    This report outlines the design, prototyping, testing and validation for a basic passive avionics unit.
+    The avionics unit is outfitted with a pressure sensor that can be used to calculate the altitude of the aeronautical system it is integrated to.
+
+\section{Requirements}
+
+    The requirements of this avionics unit are as follows:
     \begin{itemize}
-        \item Nullam facilisis, neque euismod tincidunt vulputate, arcu dolor faucibus diam, ac aliquam leo enim eu erat.
+        \item Unit shall possess a datalogging ('telemetry') capability:
+        \begin{itemize}
+            \item Telemetry shall record altitude with respect to time.
+            \item Telemetry shall store recorded data in nonvolatile memory.
+            \item Telemetry shall perform in "L1" unguided rocket flight conditions, including:
+            \begin{itemize}
+                \item Up to 40 g of acceleration
+                \item Up to 340 m/s of velocity
+                \item Up to 1,500 m of altitude
+            \end{itemize}
+        \end{itemize}
     \end{itemize}
-    \item Integer tempus augue vitae sollicitudin blandit.
-    \item Quisque eget est vel metus accumsan lacinia.
-    \item Vivamus elementum tortor non eros semper, quis volutpat purus vestibulum.
-    \item Maecenas et purus in orci ullamcorper tincidunt a quis massa.
-\end{itemize}
 
-\subsection{Enumerated Lists}
-\begin{enumerate}
-    \item Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    \begin{enumerate}
-        \item Etiam cursus feugiat ex, nec aliquet urna finibus ut. Maecenas viverra eros nec nulla facilisis consectetur. Donec mollis sapien a semper interdum.
-    \end{enumerate}
-    \item Integer tempus augue vitae sollicitudin blandit.
-    \item Quisque eget est vel metus accumsan lacinia.
-    \item Vivamus elementum tortor non eros semper, quis volutpat purus vestibulum.
-    \item Maecenas et purus in orci ullamcorper tincidunt a quis massa.
-\end{enumerate}
+    Altitude data is usually the most interesting bit of flight data for a small unguided rocket, as it will validate the trajectory simulation used to design the rocket.
+    The avionics unit will store the altitude data to be examined once the unit is recovered;
+    This might equate to an analysis of the maximum altitude of a rocket after it has been recovered.
+    The altitude data must be in nonvolatile memory so that if the avionics unit runs out of power the data is not lost.
+    Otherwise, this altitude data may be recorded and stored in whatever implementation (i.e. method) works.
 
-\subsection{Text Formatting}
-\textbf{Suspendisse a ante sed augue aliquet pharetra.} \textit{Suspendisse scelerisque mauris diam, ut fringilla odio egestas nec.} Maecenas sed luctus ipsum. Morbi est velit, luctus sed velit eu, dignissim fringilla est. Aliquam erat volutpat. Pellentesque enim lectus, posuere ac turpis eu, tempor viverra erat. Aliquam lacinia convallis felis.
+\section{Detailed Design}
 
-\subsubsection{Breaks}
-Donec nec nibh venenatis, accumsan libero aliquet, tincidunt urna. Duis iaculis rutrum sodales. Nam leo sapien, laoreet et dolor id, dignissim facilisis quam. Fusce ligula nisl, sollicitudin eu turpis ut, luctus viverra neque. Sed laoreet lobortis lectus sed posuere.\\
-Morbi ultricies diam at ligula dignissim semper. Vestibulum vel sapien ut diam luctus luctus sed eget lacus. Sed laoreet nisl ante, nec tristique velit suscipit vitae. Fusce ornare lectus nisl, a imperdiet ex convallis mattis. Curabitur semper quam ac dui pellentesque lacinia.\\
-Donec in sem fermentum, tempor sapien tristique, congue magna. Fusce pulvinar viverra est at semper.
+    \subsection{Altitude Measurement}
 
-\pagebreak
-Nunc molestie ligula quis orci semper, nec laoreet massa posuere. Sed imperdiet, risus in rutrum viverra, urna arcu malesuada nulla, nec sollicitudin lacus metus volutpat urna. Nulla nibh neque, feugiat at rhoncus ut, elementum et odio. Mauris eleifend ex vel quam euismod, eget euismod nibh placerat. Nunc iaculis, metus id cursus molestie, ligula purus semper elit, at ullamcorper nunc nisl sed mi. Cras id venenatis massa. Mauris id lobortis nibh. Curabitur mi dui, laoreet eu quam ac, tempor luctus nisl. Sed velit quam, tristique sed ultricies id, dignissim in tellus. 
+        There are two types of sensors that can be used for measuring the altitude of the unit; a GPS or a pressure sensor.
 
-\subsection{Internal References}
-Citing \textit{Section \ref{ExampleSectionLabel}}. Is that easy, and if it changes, the label will remain. The reference will auto update to the correct number regardless of updates (unless the label is changed).
+        The Global Position System works by triangulating the position of a GPS unit using the Global Navigation Satellite System, by measuring the errors in transmission/reception of GNSS signals.
+        A GPS is able to measure altitude as well as position on the surface of the Earth, as long as it has four or more sattelites acquired.
+        GPS units have an in-built acceleration and velocity limit (GPS "CoCom" limits) so they cannot be used in guided missile systems.
+        The CoCom limit is typically quoted as applying to systems above:
+        \begin{itemize}
+            \item >60,000 ft (>18.3 km)
+            \item >1,000 knots (>514 m/s)
+        \end{itemize}
+        GPS systems may be specified for greater limits (e.g. U-Blox NEO-6 is specified to operate up to 50km \cite{ublox-gps1}) but it should be assumed that the CoCom limits be applied to all GPS units above the altitude OR velocity limit unless otherwise tested.
 
+        A small number of low-cost (<AUD 60 for breakout) GPS units were examined;
+        \begin{itemize}
+            \item CD-PA1616S GPS patch antenna module (sold in breakouts by Adafruit) \cite{cd-gps}.
+            \item NEO-6 U-blox 6 GPS module (sold in breakouts by U-Blox) \cite{ublox-gps1}.
+            \item SAM-M8Q U-blox M8 GNSS antenna module (sold in breakouts by SparkFun) \cite{ublox-gps2}.
+        \end{itemize}
+
+        The CoCom limits are not too much for a small ('L1') unguided rocket, but the acceleration limit is.
+        These three GPS sensors have an acceration limit of 4 g or greater.
+        If this limit is exceeded, the GPS may be disabled for a period of time.
+        Therefore, a GPS likely is not an acceptable method for altitude measurement in a rocket.
+
+\section{Technical Development}
+
+    The initial prototype system
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% DOCUMENT EDIT AREA **STOP** %%%
